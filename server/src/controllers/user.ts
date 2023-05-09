@@ -35,6 +35,7 @@ export const create: RequestHandler = async (req: CreateUser, res) => {
   transport.sendMail({
     to: user.email,
     from: "auth@myapp.com",
+    subject: "Welcome message",
     html: generateTemplate({
       title: "Welcome to Music",
       message: welcomeMessage,
