@@ -31,10 +31,10 @@ export const verifyEmail: RequestHandler = async (
   })
 
   if (!verificationToken)
-    return res.status(403).json({ error: "Invalid token!1" })
+    return res.status(403).json({ error: "Invalid token!" })
 
   const matched = await verificationToken?.compareToken(token)
-  if (!matched) return res.status(403).json({ error: "Invalid token!2" })
+  if (!matched) return res.status(403).json({ error: "Invalid token!" })
 
   await User.findByIdAndUpdate(userId, { verified: true })
   await EmailVerificationToken.findByIdAndDelete(verificationToken._id)
