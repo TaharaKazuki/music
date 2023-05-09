@@ -1,4 +1,4 @@
-import { create } from "@/controllers/user"
+import { create, verifyEmail } from "@/controllers/user"
 import { validate } from "@/middleware/validator"
 import { Router } from "express"
 import { CreateUserSchema } from "@/utils/validationSchema"
