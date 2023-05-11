@@ -32,12 +32,7 @@ type Profile = {
 export const sendVerificationMail = async (token: string, profile: Profile) => {
   const transport = generateMailTransporter()
 
-  const { name, email, userId } = profile
-
-  await EmailVerificationToken.create({
-    owner: userId,
-    token,
-  })
+  const { name, email } = profile
 
   const welcomeMessage = `Hi ${name}, welcome to Music! There are so much 
 thing that we do for verified users. Use the given OTP to verify your email.`

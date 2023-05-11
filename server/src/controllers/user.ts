@@ -12,6 +12,12 @@ export const create: RequestHandler = async (req: CreateUser, res) => {
   const user = await User.create({ name, email, password })
 
   const token = generateToken()
+
+  await EmailVerificationToken.create({
+    owner: user._id,
+    token,
+  })
+
   sendVerificationMail(token, {
     name,
     email,
@@ -52,9 +58,11 @@ export const sendReVerificationToken: RequestHandler = async (req, res) => {
   const user = await User.findById(userId)
   if (!user) return res.status(403).json({ error: "Invalid request!" })
 
-  await EmailVerificationToken.findOneAndDelete({
+  const deletedDocument = await EmailVerificationToken.findOneAndDelete({
     owner: userId,
   })
+
+  console.info("deletedDocument", deletedDocument)
 
   const token = generateToken()
 
