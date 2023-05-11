@@ -62,8 +62,6 @@ export const sendReVerificationToken: RequestHandler = async (req, res) => {
     owner: userId,
   })
 
-  console.info("deletedDocument", deletedDocument)
-
   const token = generateToken()
 
   await EmailVerificationToken.create({
@@ -78,4 +76,11 @@ export const sendReVerificationToken: RequestHandler = async (req, res) => {
   })
 
   res.json({ message: "Please check you mail." })
+}
+
+export const generateForgetPasswordLink: RequestHandler = async (req, res) => {
+  const { email } = req.body
+
+  const user = User.findOne({ email })
+  if (!user) return res.status(404).json({ error: "Account not found!" })
 }
